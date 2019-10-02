@@ -1,7 +1,7 @@
 from socket_connection import *
 
 def handle2(sock, addr):
-	print('Connection Received - ', sock.getpeername())
+	print('Connection Received -', sock.getpeername())
 	data = b''
 	while data != b'exit':
 		try:
