@@ -20,6 +20,6 @@ while True:
 	except:
 		print('Disconnected')
 		break
-	print('Rec:', recv)
+	print('Rec:', str(recv))
 
 sock.close()
