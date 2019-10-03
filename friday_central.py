@@ -17,7 +17,7 @@ def eliza_bot(sock, addr):
             print('Eliza : Disconnected -', sock.getpeername())
             break
         print('Eliza : Data Received: ', data)
-        reply = bot.respond(data.decode('utf-8')).encode('utf-8')
+        reply = ('Eliza : ' + bot.respond(data.decode('utf-8'))).encode('utf-8')
         socket_connection.send_pack(sock, reply)
     sock.close()
 

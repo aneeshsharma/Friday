@@ -9,7 +9,7 @@ sock = Socket()
 sock.connect(ip, port)
 
 while True:
-	data = input('Msg: ')
+	data = input('You:\t')
 	try:
 		sock.send(data)
 	except:
@@ -20,6 +20,6 @@ while True:
 	except:
 		print('Disconnected')
 		break
-	print('Rec:', recv.decode('utf-8'))
+	print('\033[1;34mFriday:\t', recv.decode('utf-8') + '\033[0;37m')
 
 sock.close()
