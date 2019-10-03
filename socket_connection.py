@@ -1,7 +1,7 @@
 import socket
 import threading
 
-def default_client(sock, addr):
+def blank_handler(sock, addr):
 	# Sample handler
 	sock.send(b'Thank you for connecting')
 	sock.close()
@@ -34,7 +34,7 @@ class Socket:
 	def recv(self, header=32):
 		return receive_pack(self.sock, header)
 
-	def listen_loop(self, num, handle_client=default_client):
+	def listen_loop(self, num, handle_client=blank_handler):
 		self.sock.listen(num)
 		clients = []
 		while True:

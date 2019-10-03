@@ -1,26 +1,28 @@
 from socket_connection import *
 
-def handle2(sock, addr):
-	print('Connection Received -', sock.getpeername())
-	data = b''
-	while data != b'exit':
-		try:
-			data = receive_pack(sock)
-			if data == b'exit':
+def default_handler(sock, addr):
+		print('Connection Received -', sock.getpeername())
+		data = b''
+		while data != b'exit':
+			try:
+				data = receive_pack(sock)
+				if data == b'exit':
+					print('Disconnected -', sock.getpeername())
+					break
+			except:
 				print('Disconnected -', sock.getpeername())
 				break
-		except:
-			print('Disconnected -', sock.getpeername())
-			break
-		print('Data Received: ', data)
-		send_pack(sock, data)
-	sock.close()
+			print('Data Received: ', data)
+			send_pack(sock, data)
+		sock.close()
 
-sock = Socket()
+def socket_server(handler=default_handler):
 
-port = sock.bind_port(7200, 8000)
+	sock = Socket()
 
-print('Listening to ', port)
+	port = sock.bind_port(7200, 8000)
 
-sock.listen_loop(5, handle2)
+	print('Listening to ', port)
+
+	sock.listen_loop(5, handler)
 
