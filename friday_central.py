@@ -1,5 +1,5 @@
 import socket_server
-import socket_connection
+import SocketInterface
 import threading
 import eliza
 
@@ -10,7 +10,7 @@ def eliza_bot(sock, addr):
     data = b''
     while data != b'exit':
         try:
-            data = socket_connection.receive_pack(sock)[0]
+            data = SocketInterface.receive_pack(sock)[0]
             if data == b'exit':
                 print('Eliza : Exit -', sock.getpeername())
                 break
@@ -19,7 +19,7 @@ def eliza_bot(sock, addr):
             break
         print('Eliza : Data Received: ', data)
         reply = ('Eliza:' + bot.respond(data.decode('utf-8'))).encode('utf-8')
-        socket_connection.send_pack(sock, reply)
+        SocketInterface.send_pack(sock, reply)
     sock.close()
 
 
@@ -29,7 +29,7 @@ def discord_bot(sock, addr):
     data = b''
     while data != b'exit':
         try:
-            data = socket_connection.receive_pack(sock)[0]
+            data = SocketInterface.receive_pack(sock)[0]
             if data == b'exit':
                 print('Eliza : Exit -', sock.getpeername())
                 break
@@ -38,15 +38,15 @@ def discord_bot(sock, addr):
             break
         print('Eliza : Data Received: ', data)
         reply = (bot.respond(data.decode('utf-8'))).encode('utf-8')
-        socket_connection.send_pack(sock, reply)
+        SocketInterface.send_pack(sock, reply)
     sock.close()
 
 
-command_server = threading.Thread(
-    target=socket_server.socket_server, args=(eliza_bot,))
-
 discord_bot_server = threading.Thread(
-    target=socket_server.socket_server, args=(discord_bot,))
+    target=socket_server.socket_server, args=('Friday Discord Server', discord_bot,))
+
+command_server = threading.Thread(
+    target=socket_server.socket_server, args=('Eliza', eliza_bot,))
 
 command_server.start()
 discord_bot_server.start()

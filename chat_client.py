@@ -1,5 +1,5 @@
 import socket
-from socket_connection import Socket
+from SocketInterface import Socket
 
 ip = input('IP: ')
 port = int(input('Port: '))
