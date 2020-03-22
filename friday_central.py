@@ -25,18 +25,18 @@ def eliza_bot(sock, addr):
 
 def discord_bot(sock, addr):
     bot = eliza.eliza()
-    print('Eliza : Connection Received -', sock.getpeername())
+    print('Discord : Connection Received -', sock.getpeername())
     data = b''
     while data != b'exit':
         try:
             data = SocketInterface.receive_pack(sock)[0]
             if data == b'exit':
-                print('Eliza : Exit -', sock.getpeername())
+                print('Discord : Exit -', sock.getpeername())
                 break
         except:
-            print('Eliza : Disconnected -', sock.getpeername())
+            print('Discord : Disconnected -', sock.getpeername())
             break
-        print('Eliza : Data Received: ', data)
+        print('Discord : Data Received: ', data)
         reply = (bot.respond(data.decode('utf-8'))).encode('utf-8')
         SocketInterface.send_pack(sock, reply)
     sock.close()
