@@ -18,11 +18,11 @@ def default_handler(sock, addr):
     sock.close()
 
 
-def socket_server(name, handler=default_handler):
+def socket_server(name, handler=default_handler, port_start=7200, port_end=8000):
 
     sock = Socket()
 
-    port = sock.bind_port(7200, 8000)
+    port = sock.bind_port(port_start, port_end)
 
     print(name, ': Listening to ', port)
 

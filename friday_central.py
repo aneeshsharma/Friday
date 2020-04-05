@@ -43,7 +43,7 @@ def discord_bot(sock, addr):
 
 
 discord_bot_server = threading.Thread(
-    target=socket_server.socket_server, args=('Friday Discord Server', discord_bot,))
+    target=socket_server.socket_server, args=('Friday Discord Server', discord_bot, 7777, 7777))
 
 command_server = threading.Thread(
     target=socket_server.socket_server, args=('Eliza', eliza_bot,))
